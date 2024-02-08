@@ -1,4 +1,4 @@
-const {Pool} = require('../Backend/node_modules/pg')
+const {Pool}= require('pg')
 
 const pool = new Pool({
     user: process.env.PGUSER,
@@ -8,6 +8,6 @@ const pool = new Pool({
     port: process.env.PGPORT
 })
 
-module.exports ={
-    query : (text, param) => pool.query(text,param),
+module.exports={
+    query : (text, param) => pool.query(text, param),
 }
