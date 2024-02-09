@@ -1,6 +1,7 @@
 <script>
   import Api from "./Api";
 
+  let sound = "/src/assets/sound.png";
   let number = getRandomNumber();
   async function getRandomNumber() {
     try {
@@ -16,6 +17,11 @@
       console.error(err.message);
     }
   }
+
+  function playAudio() {
+    // @ts-ignore
+    document.getElementById("myAudio").play();
+  }
 </script>
 
 <div class="container">
@@ -23,10 +29,10 @@
     <p>Loading...</p>
   {:then number}
     <div>
-      <button id="playButton">
-        <i class="glyphicon glyphicon-play">uuu</i>
+      <button id="playButton" on:click={playAudio}>
+        <i>Play Sound <img src="/src/assets/sound.png" alt="sound" /></i>
       </button>
-      <audio id="myAudio" src="your-audio-file.mp3"></audio>
+      <audio id="myAudio" src={number.audio}></audio>
     </div>
     <h1>{number.id}</h1>
     <h1>{number.word}</h1>
@@ -42,21 +48,27 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row;
+    align-items: center;
     padding-left: 9%;
     padding-right: 9%;
     margin-top: 10%;
   }
 
   #playButton {
-    background-color: #3498db;
+    background-color: #34dbba;
     color: #fff;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    border-radius: 1rem;
   }
 
   #playButton:hover {
-    background-color: #2980b9;
+    background-color: #96cef4;
+  }
+  img {
+    width: 1rem;
+    height: 1rem;
   }
 </style>
