@@ -14,4 +14,4 @@ create table frnum(  /* create the french numbers table */
     word varchar(100) not null
 );
 
-insert into frnum values(,'','');
+insert into frnum values( ,'','');

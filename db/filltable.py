@@ -1,5 +1,6 @@
 f = open("./Backend/frinsert.txt", "a")
 t = open("./Backend/numbers.txt", "r")
+
 i=0
 
 for line in t:

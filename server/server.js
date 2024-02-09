@@ -34,6 +34,9 @@ app.get("/api/v1/", async (req, res) => {
   } catch (error) {
     console.log("Can't SELECT for the database");
     console.log(error);
+    res.status(4).json({
+      status: "fail",
+    });
   }
 });
 app.listen(port, () =>
