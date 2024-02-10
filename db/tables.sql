@@ -16,7 +16,7 @@ exit /* exit the french user */
 
 psql -U postgres  /* connect to the postgres or any user with admin rights */
 
-REVOKE CONNECT ON DATABASE random_db FROM french; /* just to login */
+REVOKE CONNECT ON DATABASE random_db FROM french; /* revoking then connect right to the random_db  */
 
 exit /* exit the Admin user for the last time */
 

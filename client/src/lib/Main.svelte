@@ -1,5 +1,7 @@
 <script>
   import Api from "./Api";
+  import Loading from "./Loading.svelte";
+  import Error from "./Error.svelte";
 
   let sound = "/src/assets/sound.png";
   let number = getRandomNumber();
@@ -29,7 +31,7 @@
 
 <div class="container">
   {#await number}
-    <p>Loading...</p>
+    <Loading />
   {:then number}
     <div id="firstCollum">
       <button id="playButton" on:click={playAudio}>
@@ -40,24 +42,37 @@
         <img id="sheffle" src="/src/assets/shuffle.png" alt="next number" />
       </button>
     </div>
-    <h1>{number.id}</h1>
-    <h1>{number.word}</h1>
+    <div>
+      <input id="number" type="number" />
+    </div>
+    <div>
+      <h1>{number.word}</h1>
+    </div>
   {:catch error}
-    <p>Error...</p>
+    <Error />
   {/await}
 </div>
 
 <style>
+  #number {
+    width: 100%;
+    height: 2rem;
+    padding-left: 0.5rem;
+  }
   .container {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-around;
     flex-direction: row;
-    align-items: center;
     padding-left: 9%;
     padding-right: 9%;
-    margin-top: 10%;
+    margin-top: 7%;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .container div {
+    margin-bottom: 2rem;
   }
 
   #playButton {
@@ -87,6 +102,10 @@
     border: none;
     background-color: unset;
   }
+  #next:hover {
+    cursor: pointer;
+  }
+
   #sheffle {
     margin: 0;
     padding: 0;
@@ -99,5 +118,10 @@
     display: flex;
     align-items: center;
     flex-direction: row;
+  }
+  @media (max-width: 510px) {
+    .container {
+      flex-direction: column;
+    }
   }
 </style>

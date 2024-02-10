@@ -10,7 +10,7 @@
   <li><img {src} alt="12Fr Logo" /></li>
   <li><a href="/">Learn French Numbers</a></li>
   <li class="stickRight">
-    <a class="active" href="/">Native Lang : {lang}</a>
+    <a class="active" href="/">Lang : {lang}</a>
   </li>
 </ul>
 
