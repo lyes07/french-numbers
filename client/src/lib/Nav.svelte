@@ -53,4 +53,7 @@
     width: 9rem;
     height: 3rem;
   }
+  li {
+    font-size: larger;
+  }
 </style>

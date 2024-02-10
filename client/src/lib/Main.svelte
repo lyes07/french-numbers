@@ -7,7 +7,6 @@
     try {
       const res = await Api.get("/");
       const data = res.data.data[0];
-      console.log(res.status);
       if (res.status == 200) {
         return data;
       } else {
@@ -16,6 +15,10 @@
     } catch (err) {
       console.error(err.message);
     }
+  }
+
+  async function next() {
+    number = await getRandomNumber();
   }
 
   function playAudio() {
@@ -28,11 +31,14 @@
   {#await number}
     <p>Loading...</p>
   {:then number}
-    <div>
+    <div id="firstCollum">
       <button id="playButton" on:click={playAudio}>
         <i>Play Sound <img src="/src/assets/sound.png" alt="sound" /></i>
       </button>
       <audio id="myAudio" src={number.audio}></audio>
+      <button id="next" on:click={next}>
+        <img id="sheffle" src="/src/assets/shuffle.png" alt="next number" />
+      </button>
     </div>
     <h1>{number.id}</h1>
     <h1>{number.word}</h1>
@@ -70,5 +76,28 @@
   img {
     width: 1rem;
     height: 1rem;
+  }
+  i {
+    font-size: larger;
+  }
+
+  #next {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: unset;
+  }
+  #sheffle {
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    margin-left: 0.8rem;
+  }
+
+  #firstCollum {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
   }
 </style>
