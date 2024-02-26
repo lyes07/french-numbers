@@ -19,18 +19,17 @@ function randomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-app.get("/api/v1/", async (req, res) => {
+app.get("/api/v1/:lang/", async (req, res) => {
   try {
+    const lang = req.params.lang;
     const random = randomInt(101);
-    const randomRow = await db.query("SELECT * FROM frnum WHERE id=$1", [
-      random,
-    ]);
+    const q = "SELECT * FROM " + lang + " WHERE id=$1";
+    const randomRow = await db.query(q, [random]);
     res.status(200).json({
       status: "success",
       length: randomRow.rowCount,
       data: randomRow.rows,
     });
-    console.log("end");
   } catch (error) {
     console.log("Can't SELECT for the database");
     console.log(error);
@@ -39,6 +38,7 @@ app.get("/api/v1/", async (req, res) => {
     });
   }
 });
+
 app.listen(port, () =>
   console.log(`french numbers server listening on port ${port}`)
 );

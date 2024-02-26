@@ -7,7 +7,7 @@
   let number = getRandomNumber();
   async function getRandomNumber() {
     try {
-      const res = await Api.get("/");
+      const res = await Api.get("/fr/");
       const data = res.data.data[0];
       if (res.status == 200) {
         return data;
@@ -29,7 +29,7 @@
   }
 </script>
 
-<div class="container">
+<div class="contmain">
   {#await number}
     <Loading />
   {:then number}
@@ -37,15 +37,42 @@
       <button id="playButton" on:click={playAudio}>
         <i>Play Sound <img src="/src/assets/sound.png" alt="sound" /></i>
       </button>
-      <audio id="myAudio" src={number.audio}></audio>
+      <audio id="myAudio" src={"data:audio/mpeg;base64," + number.audio}
+      ></audio>
       <button id="next" on:click={next}>
         <img id="sheffle" src="/src/assets/shuffle.png" alt="next number" />
       </button>
     </div>
-    <div>
-      <input id="number" type="number" />
+    <div class="co" style="margin-bottom: 0;">
+      <div class="cont" style="margin-bottom: 0;">
+        <div class="container__item">
+          <form class="form">
+            <input
+              type="number"
+              class="form__field"
+              placeholder="Number ex: 38"
+            />
+            <button type="button" class="btn btn--primary btn--inside uppercase"
+              >Check</button
+            >
+          </form>
+        </div>
+        <div class="container__item">
+          <form class="form">
+            <input
+              type="text"
+              class="form__field"
+              placeholder="Word ex: Huit"
+            />
+            <button type="button" class="btn btn--primary btn--inside uppercase"
+              >Check</button
+            >
+          </form>
+        </div>
+      </div>
     </div>
-    <div>
+
+    <div class="feedback">
       <h1>{number.word}</h1>
     </div>
   {:catch error}
@@ -54,12 +81,7 @@
 </div>
 
 <style>
-  #number {
-    width: 100%;
-    height: 2rem;
-    padding-left: 0.5rem;
-  }
-  .container {
+  .contmain {
     margin: 0;
     padding: 0;
     display: flex;
@@ -67,22 +89,25 @@
     padding-left: 9%;
     padding-right: 9%;
     margin-top: 7%;
+    margin-bottom: 7%;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
   }
-  .container div {
+  .contmain div {
     margin-bottom: 2rem;
   }
 
   #playButton {
     background-color: #34dbba;
-    color: #fff;
+    color: #545353;
+    font-weight: 700;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
     border-radius: 1rem;
+    height: 4rem;
   }
 
   #playButton:hover {
@@ -120,8 +145,70 @@
     flex-direction: row;
   }
   @media (max-width: 510px) {
-    .container {
+    .contmain {
       flex-direction: column;
     }
+  }
+
+  .co {
+    margin-bottom: 0;
+  }
+  .cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .btn {
+    display: inline-block;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    transition: all 200ms ease-in;
+    cursor: pointer;
+  }
+  .btn--primary {
+    background: #7f8ff4;
+    color: #fff;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    padding: 12px 36px;
+  }
+  .btn:hover {
+    background: darken(#7f8ff4, 4%);
+  }
+
+  .btn:active {
+    background: #7f8ff4;
+    box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn--inside {
+    margin-left: -96px;
+  }
+
+  .form__field {
+    width: 360px;
+    background: #fff;
+    color: #a3a3a3;
+    font: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    border: 0;
+    outline: 0;
+    padding: 22px 18px;
+  }
+
+  .feedback {
+    width: 22%;
+    background-color: #34dbba;
   }
 </style>

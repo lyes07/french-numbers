@@ -32,10 +32,13 @@ dist-ssr
 *.sln
 *.sw?
 */.vscode
-
+*.csv
+*.txt
 /front
 /frontend
 
+/help
+*/help
 # Logs
 logs
 *.log
