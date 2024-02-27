@@ -36,7 +36,7 @@ dist-ssr
 *.txt
 /front
 /frontend
-
+*/test.html
 /help
 */help
 # Logs
@@ -52,6 +52,8 @@ node_modules
 dist
 dist-ssr
 *.local
+
+test.html
 
 # Editor directories and files
 .vscode/*
