@@ -7,7 +7,7 @@
   let number = getRandomNumber();
   async function getRandomNumber() {
     try {
-      const res = await Api.get("/fr/");
+      const res = await Api.get("/en/");
       const data = res.data.data[0];
       if (res.status == 200) {
         return data;
