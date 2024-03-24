@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // the max number of boxes in the game grid
-const gameBoxLimit = 12;
+const gameBoxLimit = 6;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
