@@ -2,12 +2,17 @@
   import Api from "./Api";
   import Loading from "./Loading.svelte";
   import Error from "./Error.svelte";
+  import Correct from "./Correct.svelte";
+  import WrongNumber from "./WrongNumber.svelte";
+  import WrongWord from "./WrongWord.svelte";
+
+  let feedback = 0;
 
   let sound = "/src/assets/sound.png";
   let number = getRandomNumber();
   async function getRandomNumber() {
     try {
-      const res = await Api.get("/en/");
+      const res = await Api.get("/fr/");
       const data = res.data.data[0];
       if (res.status == 200) {
         return data;
@@ -26,6 +31,44 @@
   function playAudio() {
     // @ts-ignore
     document.getElementById("myAudio").play();
+  }
+
+  function numberButtonCheck() {
+    // @ts-ignore
+    const numberInput = document.getElementById("numberInput").value;
+
+    if (!isNaN(parseInt(numberInput))) {
+      const num = parseInt(numberInput);
+
+      // @ts-ignore
+      if (num === number.id) {
+        feedback = 1;
+
+        // @ts-ignore
+        document.getElementById("numberInput").value = "";
+      } else {
+        feedback = 2;
+      }
+      console.log(feedback);
+    }
+  }
+
+  function wordButtonCheck() {
+    // @ts-ignore
+    const wordInput = document.getElementById("wordInput").value;
+
+    if (wordInput.length > 2) {
+      const word = wordInput.toLowerCase();
+
+      // @ts-ignore
+      if (word == number.word) {
+        feedback = 1;
+        // @ts-ignore
+        document.getElementById("wordInput").value = "";
+      } else {
+        feedback = 3;
+      }
+    }
   }
 </script>
 
@@ -48,24 +91,32 @@
         <div class="container__item">
           <form class="form">
             <input
+              id="numberInput"
               type="number"
               class="form__field"
               placeholder="Number ex: 38"
+              disabled={number === undefined}
             />
-            <button type="button" class="btn btn--primary btn--inside uppercase"
-              >Check</button
+            <button
+              type="button"
+              class="btn btn--primary btn--inside uppercase"
+              on:click={numberButtonCheck}>Check</button
             >
           </form>
         </div>
         <div class="container__item">
           <form class="form">
             <input
+              id="wordInput"
               type="text"
               class="form__field"
               placeholder="Word ex: Huit"
+              disabled={number === undefined}
             />
-            <button type="button" class="btn btn--primary btn--inside uppercase"
-              >Check</button
+            <button
+              type="button"
+              class="word-button btn btn--primary btn--inside uppercase"
+              on:click={wordButtonCheck}>Check</button
             >
           </form>
         </div>
@@ -73,7 +124,15 @@
     </div>
 
     <div class="feedback">
-      <h1>{number.word}</h1>
+      <h1>FeedBack:</h1>
+      {#if feedback === 1}
+        <Correct />
+      {:else if feedback === 2}
+        <WrongNumber number={number.id} />
+      {:else if feedback === 3}
+        <WrongWord word={number.word} />
+      {:else}<div></div>
+      {/if}
     </div>
   {:catch error}
     <Error />
@@ -209,6 +268,6 @@
 
   .feedback {
     width: 22%;
-    background-color: #34dbba;
+    /* background-color: #34dbba; */
   }
 </style>

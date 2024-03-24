@@ -47,6 +47,7 @@
 
   .stickRight {
     float: right;
+    display: none;
   }
 
   img {
