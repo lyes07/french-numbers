@@ -35,6 +35,8 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
   }
 
   li a:hover:not(.active) {

@@ -2,17 +2,18 @@
   export let number;
 </script>
 
-<div>
-  <span><ul>Wrong</ul></span>
+<div class="feed">
+  <span>Wrong</span>
   <span>Answer: {number}</span>
 </div>
 
 <style>
-  span {
-    font-weight: 500;
-    color: #be2a27;
+  .feed {
+    display: flex;
+    flex-direction: column;
   }
-  ul {
+  span {
+    font-weight: bold;
     color: #be2a27;
   }
 </style>

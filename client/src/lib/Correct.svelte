@@ -1,13 +1,14 @@
-<div>
-  <span><ul>Correct</ul></span>
+<div class="feed">
+  <span>Correct</span>
 </div>
 
 <style>
-  span {
-    font-weight: 500;
-    color: #53d860;
+  .feed {
+    display: flex;
+    flex-direction: column;
   }
-  ul {
+  span {
+    font-weight: bold;
     color: #53d860;
   }
 </style>

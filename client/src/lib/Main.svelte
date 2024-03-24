@@ -1,5 +1,7 @@
 <script>
+  import { onMount } from "svelte";
   import Api from "./Api";
+
   import Loading from "./Loading.svelte";
   import Error from "./Error.svelte";
   import Correct from "./Correct.svelte";
@@ -7,15 +9,15 @@
   import WrongWord from "./WrongWord.svelte";
 
   let feedback = 0;
-
+  let number;
   let sound = "/src/assets/sound.png";
-  let number = getRandomNumber();
+
   async function getRandomNumber() {
     try {
       const res = await Api.get("/fr/");
       const data = res.data.data[0];
-      if (res.status == 200) {
-        return data;
+      if (res.status === 200) {
+        number = data;
       } else {
         throw new Error(data);
       }
@@ -25,12 +27,15 @@
   }
 
   async function next() {
-    number = await getRandomNumber();
+    await getRandomNumber();
   }
 
   function playAudio() {
-    // @ts-ignore
-    document.getElementById("myAudio").play();
+    const audioElement = document.getElementById("myAudio");
+    if (audioElement) {
+      // @ts-ignore
+      audioElement.play();
+    }
   }
 
   function numberButtonCheck() {
@@ -40,45 +45,48 @@
     if (!isNaN(parseInt(numberInput))) {
       const num = parseInt(numberInput);
 
-      // @ts-ignore
       if (num === number.id) {
         feedback = 1;
-
         // @ts-ignore
+
         document.getElementById("numberInput").value = "";
       } else {
         feedback = 2;
       }
-      console.log(feedback);
     }
   }
 
   function wordButtonCheck() {
     // @ts-ignore
+
     const wordInput = document.getElementById("wordInput").value;
 
     if (wordInput.length > 2) {
       const word = wordInput.toLowerCase();
 
-      // @ts-ignore
-      if (word == number.word) {
+      if (word === number.word) {
         feedback = 1;
         // @ts-ignore
+
         document.getElementById("wordInput").value = "";
       } else {
         feedback = 3;
       }
     }
   }
+
+  onMount(async () => {
+    await getRandomNumber();
+  });
 </script>
 
 <div class="contmain">
-  {#await number}
+  {#if number === undefined}
     <Loading />
-  {:then number}
+  {:else}
     <div id="firstCollum">
       <button id="playButton" on:click={playAudio}>
-        <i>Play Sound <img src="/src/assets/sound.png" alt="sound" /></i>
+        <i>Play Sound <img src={sound} alt="sound" /></i>
       </button>
       <audio id="myAudio" src={"data:audio/mpeg;base64," + number.audio}
       ></audio>
@@ -89,13 +97,12 @@
     <div class="co" style="margin-bottom: 0;">
       <div class="cont" style="margin-bottom: 0;">
         <div class="container__item">
-          <form class="form">
+          <form class="form" autocomplete="off">
             <input
               id="numberInput"
               type="number"
               class="form__field"
               placeholder="Number ex: 38"
-              disabled={number === undefined}
             />
             <button
               type="button"
@@ -104,14 +111,15 @@
             >
           </form>
         </div>
+
         <div class="container__item">
-          <form class="form">
+          <form class="form" autocomplete="off">
             <input
               id="wordInput"
               type="text"
               class="form__field"
               placeholder="Word ex: Huit"
-              disabled={number === undefined}
+              autocomplete="off"
             />
             <button
               type="button"
@@ -122,21 +130,17 @@
         </div>
       </div>
     </div>
-
     <div class="feedback">
-      <h1>FeedBack:</h1>
+      <h1>Feedback:</h1>
       {#if feedback === 1}
         <Correct />
       {:else if feedback === 2}
         <WrongNumber number={number.id} />
       {:else if feedback === 3}
         <WrongWord word={number.word} />
-      {:else}<div></div>
       {/if}
     </div>
-  {:catch error}
-    <Error />
-  {/await}
+  {/if}
 </div>
 
 <style>
