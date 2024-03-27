@@ -61,7 +61,7 @@
 
     const wordInput = document.getElementById("wordInput").value;
 
-    if (wordInput.length > 2) {
+    if (wordInput.length > 1) {
       const word = wordInput.toLowerCase();
 
       if (word === number.word) {
