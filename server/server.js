@@ -46,7 +46,7 @@ app.get("/api/v1/:lang/game/", async (req, res) => {
   try {
     const lang = req.params.lang;
     const q =
-      "SELECT * FROM get_random_rows($1, $2) AS (id integer, word varchar(100), audio text)";
+      "SELECT id,word FROM get_random_rows($1, $2) AS (id integer, word varchar(100), audio text)";
     const rows = await db.query(q, [lang, gameBoxLimit]);
     res.status(200).json({
       status: "success",
