@@ -10,7 +10,7 @@
 
   let feedback = 0;
   let number;
-  let sound = "/src/assets/sound.png";
+  let sound = "/sound.png";
 
   async function getRandomNumber() {
     try {
@@ -91,7 +91,7 @@
       <audio id="myAudio" src={"data:audio/mpeg;base64," + number.audio}
       ></audio>
       <button id="next" on:click={next}>
-        <img id="sheffle" src="/src/assets/shuffle.png" alt="next number" />
+        <img id="sheffle" src="/shuffle.png" alt="next number" />
       </button>
     </div>
     <div class="co" style="margin-bottom: 0;">

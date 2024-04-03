@@ -3,7 +3,7 @@
   let lang = navigator.language || navigator.userLanguage;
   lang = lang.split("-")[0].toUpperCase();
 
-  const src = "/src/assets/mark.png";
+  const src = "/mark.png";
 </script>
 
 <ul>
