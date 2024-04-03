@@ -62,6 +62,10 @@ app.get("/api/v1/:lang/game/", async (req, res) => {
   }
 });
 
+app.get("/", async (req, res) => {
+  res.json("App is running");
+});
+
 app.listen(port, () =>
   console.log(`french numbers server listening on port ${port}`)
 );
