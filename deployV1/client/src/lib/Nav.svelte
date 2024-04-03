@@ -59,4 +59,23 @@
   li {
     font-size: larger;
   }
+  @media (max-width: 450px) {
+    img {
+      width: 8rem;
+    }
+    li img {
+      scale: 0.8;
+    }
+    li {
+      font-size: large;
+    }
+  }
+  @media (max-width: 400px) {
+    li img {
+      scale: 0.6;
+    }
+    li {
+      font-size: medium;
+    }
+  }
 </style>
