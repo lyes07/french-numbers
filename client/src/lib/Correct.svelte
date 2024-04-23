@@ -1,14 +1,17 @@
-<div class="feed">
-  <span>Correct</span>
+<div role="alert" class="feed">
+  <strong class="title"> Correct Answer </strong>
 </div>
 
 <style>
   .feed {
-    display: flex;
-    flex-direction: column;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    border-color: #202a27;
+    background-color: #ebecee;
   }
-  span {
-    font-weight: bold;
-    color: #53d860;
+  .title {
+    display: block;
+    font-weight: 500;
+    color: #202a27;
   }
 </style>

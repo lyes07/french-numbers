@@ -4,6 +4,9 @@ const cors = require("cors");
 const db = require("./connect.js");
 const app = express();
 const port = process.env.PORT || 5000;
+/* const fs = require("fs");
+const path = require("path");
+const OpenAI = require("openai"); */
 
 // the max number of boxes in the game grid
 const gameBoxLimit = 6;
@@ -65,6 +68,23 @@ app.get("/api/v1/:lang/game/", async (req, res) => {
 app.get("/", async (req, res) => {
   res.json("App is running");
 });
+
+/* 
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const speechFile = path.resolve("./speech.mp3");
+
+async function AItextToSpeech() {
+  const mp3 = await openai.audio.speech.create({
+    model: "tts-1",
+    voice: "echo",
+    input: "Today is a wonderful day to build something people love!",
+  });
+  console.log(speechFile);
+  const buffer = Buffer.from(await mp3.arrayBuffer());
+  await fs.promises.writeFile(speechFile, buffer);
+} 
+*/
 
 app.listen(port, () =>
   console.log(`french numbers server listening on port ${port}`)
